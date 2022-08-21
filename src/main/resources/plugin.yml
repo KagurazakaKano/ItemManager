@@ -1,0 +1,22 @@
+name: ItemManager
+version: '${project.version}'
+main: cat.kagurazaka.itemmanager.ItemManager
+api-version: 1.18
+prefix: ItemManager
+authors: [ KagurazakaKano ]
+depend:
+  - Essentials
+description: A Minecraft Plugin to Help Make Items Easier.
+website: https://kagurazaka.cat
+commands:
+  im:
+    description: ItemManager Main Command
+    usage: /im [subCom]
+    permission: itemmanager.op
+permissions:
+  itemmanager.op:
+    description: Give access to TeamMaker Command
+    default: op
+  itemmanager.default:
+    description: Give access to TeamMaker Command
+    default: true
