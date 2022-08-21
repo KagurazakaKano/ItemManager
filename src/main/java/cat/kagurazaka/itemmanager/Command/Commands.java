@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,9 @@ public class Commands implements CommandExecutor, TabExecutor {
     private RemoveDestroyable removeDestroyable;
     private AddPlaceable addPlaceable;
     private RemovePlaceable removePlaceable;
+    private AddLore addLore;
+    private RemoveLore removeLore;
+    private SetLore setLore;
 
     public Commands() {
         this.addEnchant = new AddEnchant();
@@ -28,7 +32,9 @@ public class Commands implements CommandExecutor, TabExecutor {
         this.removeDestroyable = new RemoveDestroyable();
         this.addPlaceable = new AddPlaceable();
         this.removePlaceable = new RemovePlaceable();
-
+        this.addLore = new AddLore();
+        this.removeLore = new RemoveLore();
+        this.setLore = new SetLore();
     }
 
     @Override
@@ -44,6 +50,9 @@ public class Commands implements CommandExecutor, TabExecutor {
                     case REMOVEDESTROYABLE -> invokeCommand(removeDestroyable, sender, command, label, args);
                     case ADDPLACEABLE -> invokeCommand(addPlaceable, sender, command, label, args);
                     case REMOVEPLACEABLE -> invokeCommand(removePlaceable, sender, command, label, args);
+                    case ADDLORE -> invokeCommand(addLore, sender, command, label, args);
+                    case REMOVELORE -> invokeCommand(removeLore, sender, command, label, args);
+                    case SETLORE -> invokeCommand(setLore, sender, command, label, args);
                     default -> sender.sendMessage("Invalid subcommand: " + args[0]);
                 }
             }
@@ -82,6 +91,9 @@ public class Commands implements CommandExecutor, TabExecutor {
                     case ADDPLACEABLE -> completeList = addPlaceable.tabComplete(sender, command, label, argsTruncated);
                     case REMOVEPLACEABLE ->
                             completeList = removePlaceable.tabComplete(sender, command, label, argsTruncated);
+                    case ADDLORE -> completeList = addLore.tabComplete(sender, command, label, argsTruncated);
+                    case REMOVELORE -> completeList = removeLore.tabComplete(sender, command, label, argsTruncated);
+                    case SETLORE -> completeList = setLore.tabComplete(sender, command, label, argsTruncated);
                 }
             } catch (IllegalArgumentException ignore) {
             }
@@ -100,6 +112,9 @@ public class Commands implements CommandExecutor, TabExecutor {
         RENAME,
         REMOVEDESTROYABLE,
         ADDPLACEABLE,
-        REMOVEPLACEABLE
+        REMOVEPLACEABLE,
+        ADDLORE,
+        REMOVELORE,
+        SETLORE,
     }
 }
