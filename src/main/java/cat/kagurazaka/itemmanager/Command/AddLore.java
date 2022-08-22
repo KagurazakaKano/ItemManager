@@ -1,6 +1,7 @@
 package cat.kagurazaka.itemmanager.Command;
 
 import land.melon.lab.simplelanguageloader.components.Text;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,17 +26,20 @@ public class AddLore implements SubCommandExecutor, SubTabCompleter {
 
         ItemMeta itemMeta = stack.getItemMeta();
         if (itemMeta != null) {
-            List<String> lore;
+            List<Component> lore;
             if (itemMeta.hasLore()) {
-                lore = itemMeta.getLore();
+                lore = itemMeta.lore();
             } else {
                 lore = new ArrayList<>();
             }
             String rawLine = String.join(" ", Arrays.asList(args).subList(1, args.length));
             String line = Text.of(rawLine).produce();
-            lore.add(line);
-            itemMeta.setLore(lore);
+            lore.add(Component.text(line));
+            itemMeta.lore(lore);
+            stack.setItemMeta(itemMeta);
         }
+
+        p.getInventory().setItemInMainHand(stack);
 
         return true;
     }

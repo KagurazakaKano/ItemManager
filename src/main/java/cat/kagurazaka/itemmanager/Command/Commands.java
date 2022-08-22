@@ -102,7 +102,7 @@ public class Commands implements CommandExecutor, TabExecutor {
     }
 
     private boolean hasPermission(CommandSender sender) {
-        return sender.hasPermission("  itemmanager.op");
+        return sender.hasPermission("itemmanager.op");
     }
 
     enum SubCommands {

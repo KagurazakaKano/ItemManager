@@ -50,23 +50,26 @@ public class SetLore implements SubCommandExecutor, SubTabCompleter {
 
         ItemMeta itemMeta = stack.getItemMeta();
         if (itemMeta != null) {
-            List<String> lore;
+            List<Component> lore;
             if (itemMeta.hasLore()) {
-                lore = itemMeta.getLore();
+                lore = itemMeta.lore();
             } else {
                 lore = new ArrayList<>();
             }
             if (lore.size() <= lineInd) {
                 for (int i = lore.size(); i < lineInd; ++i) {
-                    lore.add("");
+                    lore.add(Component.text(""));
                 }
                 lore.add(null);
             }
             String rawLine = String.join(" ", Arrays.asList(args).subList(2, args.length));
             String line = Text.of(rawLine).produce();
-            lore.set(lineInd, line);
-            itemMeta.setLore(lore);
+            lore.set(lineInd, Component.text(line));
+            itemMeta.lore(lore);
+            stack.setItemMeta(itemMeta);
         }
+
+        p.getInventory().setItemInMainHand(stack);
 
         return true;
     }

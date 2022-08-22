@@ -31,8 +31,10 @@ public class RemoveLore implements SubCommandExecutor, SubTabCompleter {
                 lore.remove(lore.size() - 1);
                 itemMeta.lore(lore);
             }
-
+            stack.setItemMeta(itemMeta);
         }
+
+        p.getInventory().setItemInMainHand(stack);
 
         return true;
     }
